@@ -1,0 +1,170 @@
+# CSS Notes
+
+---
+## em VS px
++ http://kyleschaeffer.com/development/css-font-size-em-vs-px-vs-pt-vs/
++ https://css-tricks.com/css-font-size/
+
+## main goals
++ **keep stylesheets maintainable**
++ **keep code transparent, sane, and readable**
++ **keep stylesheets scalable**
+
+## Styleguide
+
++ **Having a standard way of writing (literally writing) CSS**
+
+### stardard rules
++ **four (4) space indents or tabs**
++ **80 Characters Wide**
++ **Multiple Files**
++ **Table of Contents**
++ **avoid id and html tag **
+
+## content table example
+
+``` css
+/**
+ - CONTENTS
+ *
+ - SETTINGS
+ - Global...............Globally-available variables and config.
+ *
+ - TOOLS
+ - Mixins...............Useful mixins.
+ *
+ - GENERIC
+ - Normalize.css........A level playing field.
+ - Box-sizing...........Better default `box-sizing`.
+ *
+ - BASE
+ - Headings.............H1–H6 styles.
+ *
+ - OBJECTS
+ - Wrappers.............Wrapping and constraining elements.
+ *
+ - COMPONENTS
+ - Page-head............The main page header.
+ - Page-foot............The main page footer.
+ - Buttons..............Button elements.
+ *
+ - TRUMPS
+ - Text.................Text helpers.
+ */
+ ```
+
+## Titling
+
++ Begin every new major section of a CSS project with a title:
++ (5) carriage returns between each section
+``` css
+/*------------------------------------*\
+    #SECTION-TITLE
+\*------------------------------------*/
+ ```
+.selector {}
+
+## Indenting
+css
+``` css
+.foo {}
+
+    .foo__bar {}
+
+        .foo__baz {}
+```
+scss
+``` scss
+.foo {
+    color: red;
+
+    .bar {
+        color: blue;
+    }
+}
+```
+
+compiled css
+``` css
+.foo { color: red; }
+.foo .bar { color: blue; }
+```
++ ** Nesting in Sass argument **
+http://www.sitepoint.com/beware-selector-nesting-sass/
+
+
+## Alignment
+
+Attempt to align common and related identical strings in declarations, for example, personly think it is not necessary
+
+``` css
+.foo {
+    -webkit-border-radius: 3px;
+       -moz-border-radius: 3px;
+            border-radius: 3px;
+}
+
+.bar {
+    position: absolute;
+    top:    0;
+    right:  0;
+    bottom: 0;
+    left:   0;
+    margin-right: -10px;
+    margin-left:  -10px;
+    padding-right: 10px;
+    padding-left:  10px;
+}
+```
+
+## Meaningful Whitespace
+
++ **One (1) empty line between closely related rulesets.**
++ **Two (2) empty lines between loosely related rulesets.**
++ **Five (5) empty lines between entirely new sections.**
+
+example
+``` css
+
+/*------------------------------------*\
+    #FOO
+\*------------------------------------*/
+
+.foo {}
+
+    .foo__bar {}
+
+
+.foo--baz {}
+
+
+
+
+
+/*------------------------------------*\
+    #BAR
+\*------------------------------------*/
+
+.bar {}
+
+    .bar__baz {}
+
+    .bar__foo {}
+
+```
+
+## 內容大綱
+
+* [註解](#comments)
+  * [編寫註解的技巧](#comments-on-steroids)
+    * [使用看似合法的選取器 (Quasi-qualified selectors)](#quasi-qualified-selectors)
+    * [替樣式加上特殊的標籤 (Tagging code)](#tagging-code)
+    * [用物件繼承的方式註記 (Object/extension pointers)](#objectextension-pointers)
+
+codestyle
+
+oocss
+
+smacss
+
+bem
