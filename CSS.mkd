@@ -1,25 +1,36 @@
 # CSS Notes
 
----
-## em VS px
-+ http://kyleschaeffer.com/development/css-font-size-em-vs-px-vs-pt-vs/
-+ https://css-tricks.com/css-font-size/
 
+
+<!-- 
+## Contents
+
+* [Main goals](#main-goals)
+* [註解](#comments)
+  * [編寫註解的技巧](#comments-on-steroids)
+    * [使用看似合法的選取器 (Quasi-qualified selectors)](#quasi-qualified-selectors)
+    * [替樣式加上特殊的標籤 (Tagging code)](#tagging-code)
+    * [用物件繼承的方式註記 (Object/extension pointers)](#objectextension-pointers)
+ -->
+
+<a name="main-goals"></a>
 ## main goals
 + **keep stylesheets maintainable**
 + **keep code transparent, sane, and readable**
 + **keep stylesheets scalable**
 
-## Styleguide
+### Style guide
 
-+ **Having a standard way of writing (literally writing) CSS**
++ **Having a standard way of writing CSS**
 
 ### stardard rules
 + **four (4) space indents or tabs**
 + **80 Characters Wide**
 + **Multiple Files**
 + **Table of Contents**
-+ **avoid id and html tag **
++ **avoid using id and html tag <br><a href="http://jsfiddle.net/csswizardry/0yb7rque/">one thousand chained classes cannot override the specificity of a single ID</a>**
+  
+
 
 ## content table example
 
@@ -64,6 +75,11 @@
  ```
 .selector {}
 
+
+
+
+
+
 ## Indenting
 css
 ``` css
@@ -89,11 +105,11 @@ compiled css
 .foo { color: red; }
 .foo .bar { color: blue; }
 ```
-+ ** Nesting in Sass argument **
++ **Nesting in Sass argument**
 http://www.sitepoint.com/beware-selector-nesting-sass/
 
 
-## Alignment
+## Alignment (arguable)
 
 Attempt to align common and related identical strings in declarations, for example, personly think it is not necessary
 
@@ -152,19 +168,229 @@ example
     .bar__foo {}
 
 ```
+## Meaningful Whitespace in html
 
-## 內容大綱
+As with our rulesets, it is possible to use meaningful whitespace in your HTML. You can denote thematic breaks in content with five (5) empty lines, for example:
 
-* [註解](#comments)
-  * [編寫註解的技巧](#comments-on-steroids)
-    * [使用看似合法的選取器 (Quasi-qualified selectors)](#quasi-qualified-selectors)
-    * [替樣式加上特殊的標籤 (Tagging code)](#tagging-code)
-    * [用物件繼承的方式註記 (Object/extension pointers)](#objectextension-pointers)
+``` html
+<header class="page-head">
+    ...
+</header>
 
-codestyle
 
-oocss
 
-smacss
 
-bem
+
+<main class="page-content">
+    ...
+</main>
+
+
+
+
+
+<footer class="page-foot">
+    ...
+</footer>
+```
+
+Separate independent but loosely related snippets of markup with a single empty line, for example:
+
+``` html
+<ul class="primary-nav">
+
+    <li class="primary-nav__item">
+        <a href="/" class="primary-nav__link">Home</a>
+    </li>
+
+    <li class="primary-nav__item  primary-nav__trigger">
+        <a href="/about" class="primary-nav__link">About</a>
+
+        <ul class="primary-nav__sub-nav">
+            <li><a href="/about/products">Products</a></li>
+            <li><a href="/about/company">Company</a></li>
+        </ul>
+
+    </li>
+
+    <li class="primary-nav__item">
+        <a href="/contact" class="primary-nav__link">Contact</a>
+    </li>
+
+</ul>
+```
+
+## Commenting
+
+
+For large comments that document entire sections or components, we use a DocBlock-esque multi-line comment which adheres to our 80 column width.
+``` css
+/**
+ * The site’s main page-head can have two different states:
+ *
+ * 1) Regular page-head with no backgrounds or extra treatments; it just
+ *    contains the logo and nav.
+ * 2) A masthead that has a fluid-height (becoming fixed after a certain point)
+ *    which has a large background image, and some supporting text.
+ *
+ * The regular page-head is incredibly simple, but the masthead version has some
+ * slightly intermingled dependency with the wrapper that lives inside it.
+ */
+```
+
+## Object–Extension Pointers
+ 
+ document object relationship across files with simple object–extension pointers. In the object file:
+
+``` css
+/**
+ * Extend `.btn {}` in _components.buttons.scss.
+ */
+
+.btn {}
+```
+ in your theme file:
+
+``` css
+/**
+ * These rules extend `.btn {}` in _objects.buttons.scss.
+ */
+
+.btn--positive {}
+
+.btn--negative {}
+```
+
+## Preprocessor Comments
+
+If you are documenting code which will get compiled, use comments that will compile also. For example:
+``` css
+// Dimensions of the @2x image sprite:
+$sprite-width:  920px;
+$sprite-height: 212px;
+
+/**
+ * 1. Default icon size is 16px.
+ * 2. Squash down the retina sprite to display at the correct size.
+ */
+.sprite {
+    width:  16px; /* [1] */
+    height: 16px; /* [1] */
+    background-image: url(/img/sprites/main.png);
+    background-size: ($sprite-width / 2 ) ($sprite-height / 2); /* [2] */
+}
+```
+
+## Naming Conventions
+
+### Hyphen Delimited
+``` css
+.page-head {}
+
+.sub-content {}
+```
+
+### BEM-like Naming
++ Block: The sole root of the component.
++ Element: A component part of the Block.
++ Modifier: A variant or extension of the Block.
+
+``` css
+/*Block*/
+.person {}
+    /*Element*/
+    .person__head {}
+        .person__head--big {}
+
+        /*Modifier*/
+        .person--tall {}
+```
+
+### Modifying Elements
+
++  <a href="http://cssguidelin.es/#modifying-elements"> Modifying Elements </a>
+    
+
+### JavaScript Hooks
+
+hood js with class start with js-*,example:
+
+``` html
+<input type="submit" class="btn  js-btn" value="Follow" />
+```
+### data-* Attributes
+
+data-* attributes are designed to store data, not be bound to.
+
+### BEM further reading
++ http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/
+
+### Selector Intent
+
++ http://cssguidelin.es/#selector-intent
+
+### Naming
+
+``` css
+/**
+ * Runs the risk of becoming out of date; not very maintainable.
+ */
+.blue {
+    color: blue;
+}
+
+/**
+ * Depends on location in order to be rendered properly.
+ */
+.header span {
+    color: blue;
+}
+
+/**
+ * Too specific; limits our ability to reuse.
+ */
+.header-color {
+    color: blue;
+}
+
+/**
+ * Nicely abstracted, very portable, doesn’t risk becoming out of date.
+ */
+.highlight-color {
+    color: blue;
+}
+```
+
+### Naming UI Components
+ 
+ provide more specific or meaningful naming alongside the more ambiguous class
+
+``` html
+<ul class="tabbed-nav" data-ui-component="Main Nav">
+```
+
+## Selector Performance
+
+example 2 will more faster than example 1 because browsers read CSS selectors right-to-left.
+
+example 1
+
+``` css
+body.home div.header ul {}
+```
+
+example 2
+
+``` css
+.primary-nav {}
+```
+
+## Object-orientation
+
+
+
+## em VS px
++ http://kyleschaeffer.com/development/css-font-size-em-vs-px-vs-pt-vs/
++ http://www.narga.net/understanding-font-sizing-in-css-em-px-pt-percent-rem/
++ http://www.sitepoint.com/css3-rem-units/
+
