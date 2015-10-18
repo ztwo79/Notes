@@ -387,7 +387,107 @@ example 2
 
 ## Object-orientation
 
+OOCSS deals with the separation of UIs into structure and skin: breaking UI components into their underlying structural forms, and layering their cosmetic forms on separately. 
 
+``` css
+/**
+ * A simple, design-free button object. Extend this object with a `.btn--*` skin
+ * class.
+ */
+.btn {
+    display: inline-block;
+    padding: 1em 2em;
+    vertical-align: middle;
+}
+
+
+/**
+ * Positive buttons’ skin. Extends `.btn`.
+ */
+.btn--positive {
+    background-color: green;
+    color: white;
+}
+
+/**
+ * Negative buttons’ skin. Extends `.btn`.
+ */
+.btn--negative {
+    background-color: red;
+    color: white;
+}
+```
+
+## The Single Responsibility Principle
+
+ our CSS should be composed of a series of much smaller classes that focus on providing very specific and limited functionality. This means that we need to decompose UIs into their smallest component pieces that each serve a single responsibility
+
+example CSS that does not adhere to the single responsibility principle
+
+``` css
+.error-message {
+    display: block;
+    padding: 10px;
+    border-top: 1px solid #f00;
+    border-bottom: 1px solid #f00;
+    background-color: #fee;
+    color: #f00;
+    font-weight: bold;
+}
+
+.success-message {
+    display: block;
+    padding: 10px;
+    border-top: 1px solid #0f0;
+    border-bottom: 1px solid #0f0;
+    background-color: #efe;
+    color: #0f0;
+    font-weight: bold;
+}
+```
+
+ break these two classes out into four much smaller responsibilities:
+
+``` css
+
+.box {
+    display: block;
+    padding: 10px;
+}
+
+
+.message {
+    border-style: solid;
+    border-width: 1px 0;
+    font-weight: bold;
+}
+
+.message--error {
+    background-color: #fee;
+    color: #f00;
+}
+
+.message--success {
+    background-color: #efe;
+    color: #0f0;
+}
+```
+## The Open/Closed Principle
+
++ open for extension, but closed for modification.
+
+ any additions, new functionality, or features we add to our classes should be added via extension—we should not modify these classes directly
+
+``` css
+.box {
+    display: block;
+    padding: 10px;
+}
+
+.box--large {
+    padding: 20px;
+}
+```
 
 ## em VS px
 + http://kyleschaeffer.com/development/css-font-size-em-vs-px-vs-pt-vs/
